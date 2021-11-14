@@ -1,9 +1,6 @@
 package com.example.springbootrabbitmq.config;
 
-import org.springframework.amqp.core.Binding;
-import org.springframework.amqp.core.BindingBuilder;
-import org.springframework.amqp.core.FanoutExchange;
-import org.springframework.amqp.core.Queue;
+import org.springframework.amqp.core.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -11,8 +8,8 @@ import org.springframework.context.annotation.Configuration;
 public class rabbitmqconfig {
     //交换机
     @Bean
-    public FanoutExchange fanoutExchange(){
-        return new FanoutExchange("amq.fanout",true,false);
+    public DirectExchange fanoutExchange(){
+        return new DirectExchange("amq.direct",true,false);
     }
     //设置消息队列
     @Bean
@@ -30,14 +27,14 @@ public class rabbitmqconfig {
     //完成绑定关系
     @Bean
     public Binding sbinding(){
-        return BindingBuilder.bind(squeue()).to(fanoutExchange());
+        return BindingBuilder.bind(squeue()).to(fanoutExchange()).with("szqf");
     }
     @Bean
     public Binding dbinding(){
-        return BindingBuilder.bind(dqueue()).to(fanoutExchange());
+        return BindingBuilder.bind(dqueue()).to(fanoutExchange()).with("dzqf");
     }
     @Bean
     public Binding ebinding(){
-        return BindingBuilder.bind(equeue()).to(fanoutExchange());
+        return BindingBuilder.bind(equeue()).to(fanoutExchange()).with("ezqf");
     }
 }

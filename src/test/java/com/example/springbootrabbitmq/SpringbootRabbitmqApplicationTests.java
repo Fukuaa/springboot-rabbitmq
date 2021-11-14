@@ -11,7 +11,7 @@ class SpringbootRabbitmqApplicationTests {
     private orderservice orderservice;
     @Test
     void contextLoads() {
-        orderservice.makeorder("z","10",20);
+        orderservice.makeorder("zqf","cat",20);
     }
 
 }
